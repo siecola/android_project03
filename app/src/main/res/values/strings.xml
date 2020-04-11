@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AndroidProject03</string>
+    <string name="str_registrationid">RegistrationId:</string>
+    <string name="str_productid">ProductId:</string>
+    <string name="str_name">Name:</string>
+    <string name="str_model">Model:</string>
+    <string name="str_code">Code:</string>
+    <string name="str_price">Price:</string>
+    <string name="str_no_info">---</string>
+    <string name="str_sales_message">Sales message:</string>
+</resources>

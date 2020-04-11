@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/fragmentProductInfo">
+
+    <action
+        android:id="@+id/action_showProductInfo"
+        app:destination="@id/fragmentProductInfo" >
+        <argument
+            app:nullable="true"
+            android:name="productInfo"
+            app:argType="string"/>
+    </action>
+
+    <action
+        android:id="@+id/action_showSalesMessage"
+        app:destination="@id/fragmentProductInfo" >
+        <argument
+            app:nullable="true"
+            android:name="salesMessage"
+            app:argType="string"/>
+    </action>
+
+    <fragment
+        android:id="@+id/fragmentProductInfo"
+        android:name="br.com.siecola.androidproject03.product.ProductInfoFragment"
+        android:label="fragment_products_list"
+        tools:layout="@layout/fragment_product_info" >
+    </fragment>
+</navigation>
