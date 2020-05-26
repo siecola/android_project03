@@ -47,7 +47,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.5'
+    implementation 'com.google.firebase:firebase-analytics:17.4.0'
 
     //Moshi
     implementation "com.squareup.moshi:moshi:1.8.0"

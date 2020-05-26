@@ -5,12 +5,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import br.com.siecola.androidproject03.product.ProductInfoFragmentDirections
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        FirebaseAnalytics.getInstance(this)
+        FirebaseMessaging.getInstance().setDeliveryMetricsExportToBigQuery(true)
 
         if (this.intent.hasExtra("product")) {
             showProductInfo(intent.getStringExtra("product")!!)
