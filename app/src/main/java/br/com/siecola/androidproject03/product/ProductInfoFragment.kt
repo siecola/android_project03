@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import br.com.siecola.androidproject03.databinding.FragmentProductInfoBinding
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceIdReceiver
+import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
+import com.google.firebase.messaging.FirebaseMessaging
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 
@@ -28,25 +31,23 @@ class ProductInfoFragment : Fragment() {
 
         binding.productInfoViewModel = productInfoViewModel
 
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    productInfoViewModel.fcmRegistrationId.value = task.result?.token
-                }
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                productInfoViewModel.fcmRegistrationId.value = task.result
+                return@OnCompleteListener
             }
+        })
 
-        if (this.arguments != null) {
-            if (this.arguments!!.containsKey("productInfo")) {
-                val moshi = Moshi.Builder().build()
-                val jsonAdapter: JsonAdapter<Product> =
-                    moshi.adapter<Product>(Product::class.java)
+        if (this.arguments?.containsKey("productInfo") == true) {
+            val moshi = Moshi.Builder().build()
+            val jsonAdapter: JsonAdapter<Product> =
+                moshi.adapter<Product>(Product::class.java)
 
-                jsonAdapter.fromJson(this.arguments!!.getString("productInfo")!!).let {
-                    productInfoViewModel.product.value = it
-                }
-            } else if (this.arguments!!.containsKey("salesMessage")) {
-                productInfoViewModel.salesMessage.value = this.arguments!!.getString("salesMessage")
+            jsonAdapter.fromJson(this.requireArguments().getString("productInfo")!!).let {
+                productInfoViewModel.product.value = it
             }
+        } else if (this.arguments?.containsKey("salesMessage") == true) {
+            productInfoViewModel.salesMessage.value = this.requireArguments().getString("salesMessage")
         }
         return binding.root
     }
